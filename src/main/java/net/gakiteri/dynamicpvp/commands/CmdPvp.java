@@ -51,7 +51,7 @@ public class CmdPvp implements CommandExecutor {
             }
             return true;
 
-        } else if (args[0].equalsIgnoreCase("on") || args[1].equalsIgnoreCase("off")) {
+        } else if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off")) {
             Player player = (Player) sender;
             if(args.length == 2) {
                 if(!this.hasPermission(sender, "dynamic.pvp.set.players")) {
@@ -59,6 +59,7 @@ public class CmdPvp implements CommandExecutor {
                 }
                 player = MngPlayers.getPlayer(args[1]);
                 uuid = player.getUniqueId();
+                pvp = Variables.playerData.get(uuid).getPvp();
             }
             if (args[0].equalsIgnoreCase("on")) {
                 if (!pvp){
@@ -83,7 +84,7 @@ public class CmdPvp implements CommandExecutor {
     public boolean hasPermission(CommandSender sender, String permission) {
         if (!sender.hasPermission(permission)) {
             sender.sendMessage(ChatColor.RED + "No tienes los permisos requeridos para ejecutar este comando");
-            return true;
+            return false;
         }
         return true;
     }
