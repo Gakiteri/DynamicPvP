@@ -7,3 +7,19 @@ commands:
   pvp:
     description: Toggle a players PVP settings
     usage: /<command> [on|off|status] [Player]
+permissions:
+  dynamic.pvp.*:
+    description:  Give acces to all commands
+    children:
+      dynamic.pvp.set: op
+      dynamic.pvp.status.players: op
+      dynamic.pvp.set.players: op
+  dynamic.pvp.set:
+     description: Set Pvp
+     default: op
+  dynamic.pvp.set.players:
+     description:  Set Pvp to other players
+     default: op
+  dynamic.pvp.status.players:
+     description: Get Status from players
+     default: op
