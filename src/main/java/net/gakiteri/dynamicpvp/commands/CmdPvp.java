@@ -68,15 +68,18 @@ public class CmdPvp implements CommandExecutor {
                     new MngConf().save();
                 }
                 sender.sendMessage(ChatColor.GREEN + "PVP activado del jugador " + player.getName());
+                if(uuid != currentPlayer.getUniqueId()){
+                    player.sendMessage(ChatColor.GREEN + "PVP activado por el jugador " + currentPlayer.getName());
+                }
             } else if (args[0].equalsIgnoreCase("off")) {
                 if (pvp) {
                     this.setPvp(uuid, false);
                     new MngConf().save();
                 }
                 sender.sendMessage(ChatColor.GREEN + "PVP desactivado del jugador " + player.getName());
-            }
-            if(uuid != currentPlayer.getUniqueId()){
-                player.sendMessage(ChatColor.GREEN + "PVP activado por el jugador " + currentPlayer.getName());
+                if(uuid != currentPlayer.getUniqueId()){
+                    player.sendMessage(ChatColor.GREEN + "PVP desactivado por el jugador " + currentPlayer.getName());
+                }
             }
             return true;
         }
