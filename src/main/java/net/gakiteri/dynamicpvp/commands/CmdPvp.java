@@ -53,6 +53,7 @@ public class CmdPvp implements CommandExecutor {
 
         } else if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off")) {
             Player player = (Player) sender;
+            Player currentPlayer = (Player) sender;
             if (args.length == 2) {
                 if (!this.hasPermission(sender, "dynamic.pvp.set.players")) {
                     return true;
@@ -67,15 +68,17 @@ public class CmdPvp implements CommandExecutor {
                     new MngConf().save();
                 }
                 sender.sendMessage(ChatColor.GREEN + "PVP activado del jugador " + player.getName());
-                return true;
             } else if (args[0].equalsIgnoreCase("off")) {
                 if (pvp) {
                     this.setPvp(uuid, false);
                     new MngConf().save();
                 }
                 sender.sendMessage(ChatColor.GREEN + "PVP desactivado del jugador " + player.getName());
-                return true;
             }
+            if(uuid != currentPlayer.getUniqueId()){
+                player.sendMessage(ChatColor.GREEN + "PVP activado por el jugador " + currentPlayer.getName());
+            }
+            return true;
         }
         sender.sendMessage(ChatColor.RED + "Error al ejecutar el comando, comprueba que hayas escrito los valores correctamente");
         return false;
