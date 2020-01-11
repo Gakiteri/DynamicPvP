@@ -9,12 +9,10 @@ import java.util.Map;
 
 public class Variables {
 
-
     public static String pluginName;
     public static File dirPlugin;
     public static FileConfiguration config;
 
     public static Map<String, DataPlayer> playerData = new HashMap<>();
-
 
 }
