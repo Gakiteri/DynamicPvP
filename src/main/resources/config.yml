@@ -1,0 +1,7 @@
+
+# SYNTAX EXAMPLE
+#players:
+#  on:
+#    - playername
+#  off:
+#    - Gakiteri
