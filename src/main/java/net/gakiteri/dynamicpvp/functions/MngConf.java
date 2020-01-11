@@ -4,7 +4,6 @@ import net.gakiteri.dynamicpvp.Variables;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import static org.bukkit.Bukkit.*;
 
