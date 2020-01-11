@@ -2,7 +2,7 @@ name: Dynamicpvp
 version: ${project.version}
 main: net.gakiteri.dynamicpvp.Dynamicpvp
 api-version: 1.15
-authors: [Gakiteri]
+authors: [Gakiteri,FoxkDev]
 commands:
   pvp:
     description: Toggle a players PVP settings

@@ -83,7 +83,10 @@ public class CmdPvp implements CommandExecutor {
             }
             return true;
         }
-        sender.sendMessage(ChatColor.RED + "Error al ejecutar el comando, comprueba que hayas escrito los valores correctamente");
+        if(!args[0].equalsIgnoreCase("help")) {
+            sender.sendMessage(ChatColor.RED + "Error al ejecutar el comando, comprueba que hayas escrito los valores correctamente");
+        }
+
         return false;
     }
 
