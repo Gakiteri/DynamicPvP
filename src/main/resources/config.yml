@@ -2,6 +2,6 @@
 # SYNTAX EXAMPLE
 #players:
 #  on:
-#    - playername
+#    - player's uuid
 #  off:
-#    - Gakiteri
+#    - player's uuid
