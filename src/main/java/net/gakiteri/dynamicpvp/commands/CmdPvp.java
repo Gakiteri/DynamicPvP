@@ -84,6 +84,7 @@ public class CmdPvp implements CommandExecutor {
 
         if (!sender.hasPermission(permission)) {
             sender.sendMessage(ChatColor.RED + "No tienes los permisos requeridos para ejecutar este comando");
+            return true;
         }
         return true;
     }
