@@ -4,6 +4,7 @@ import net.gakiteri.dynamicpvp.Variables;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static org.bukkit.Bukkit.*;
 
@@ -14,14 +15,14 @@ public class MngConf {
     public void save() {
 
         // Sorts players
-        ArrayList<String> playersOn = new ArrayList<>();
-        ArrayList<String> playersOff = new ArrayList<>();
+        ArrayList<UUID> playersOn = new ArrayList<>();
+        ArrayList<UUID> playersOff = new ArrayList<>();
 
         Variables.playerData.forEach((i, o) -> {
             if (o.getPvp()) {
-                playersOn.add(i);
+                playersOn.add(i.toString());
             } else {
-                playersOff.add(i);
+                playersOff.add(i.toString());
             }
         });
 

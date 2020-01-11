@@ -2,27 +2,29 @@ package net.gakiteri.dynamicpvp.commands;
 
 import net.gakiteri.dynamicpvp.Variables;
 import net.gakiteri.dynamicpvp.functions.MngConf;
+import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Server;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class CmdPvp implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-/*
-        if (!sender.hasPermission("dynamic.player")) {
-            sender.sendMessage(ChatColor.RED + "No tienes los permisos requeridos para ejecutar este comando");
-            return true;
-        }
-*/
-        String uuid = ((Player) sender).getUniqueId().toString();
+
+        UUID uuid = ((Player) sender).getUniqueId();
         Boolean pvp = Variables.playerData.get(uuid).getPvp();
 
-        if (args.length == 0) { // toggle current player
-            Variables.playerData.get(uuid).setPvp(!pvp);
+        if (args.length == 0) { // toggle current player /pvp
+            if(!this.hasPermission(sender, "dynamic.pvp.set")) {
+                return true;
+            }
+            this.setPvp(uuid, !pvp);
             new MngConf().save();
             if (pvp) {
                 sender.sendMessage(ChatColor.GREEN + "PVP desactivado");
@@ -30,39 +32,66 @@ public class CmdPvp implements CommandExecutor {
                 sender.sendMessage(ChatColor.GREEN + "PVP activado");
             }
             return true;
-        } else if (args[1].equalsIgnoreCase("status")) { //status function
-            if (Variables.playerData.get(((Player) sender).getUniqueId().toString()).getPvp()) {
-                sender.sendMessage(ChatColor.BLUE + "Tienes el PVP activado");
-            } else {
-                sender.sendMessage(ChatColor.BLUE + "Tienes el PVP desactivado");
-            }
-        } else if(args[1].equalsIgnoreCase("on") || args[1].equalsIgnoreCase("off")) {
-            if (args[0].equalsIgnoreCase("on")) {
-                if (pvp) {
-                    sender.sendMessage(ChatColor.RED + "Ya tienes PVP activado");
-                    return true;
-                } else {
-                    Variables.playerData.get(uuid).setPvp(true);
-                    sender.sendMessage(ChatColor.GREEN + "PVP activado");
-                    new MngConf().save();
+        } else if (args[0].equalsIgnoreCase("status")) { //status function /pvp status || /pvp status FoxkDev
+            Player player = (Player) sender;
+            if(args.length == 2) {
+                if(!this.hasPermission(sender, "dynamic.pvp.status.players")) {
                     return true;
                 }
+                player = sender; //change args[1]
+                if(player == null) {
+                    sender.sendMessage(ChatColor.RED + "Usuario no existe");
+                    return true;
+                }
+                uuid = player.getUniqueId();
+            }
+            if(Variables.playerData.get(player.getUniqueId()).getPvp()) {
+                sender.sendMessage(ChatColor.BLUE + "PvP activado del jugador " + player.getName());
+            }else {
+                sender.sendMessage(ChatColor.BLUE + "PvP desactivado del jugador " + player.getName());
+            }
+            return true;
+
+        } else if(args[0].equalsIgnoreCase("on") || args[1].equalsIgnoreCase("off")) {
+            Player player = (Player) sender;
+            if(args.length == 2) {
+                if(!this.hasPermission(sender, "dynamic.pvp.set.players")) {
+                    return true;
+                }
+                Player player = sender; //change args[1]
+                uuid = player.getUniqueId();
+            }
+            if (args[0].equalsIgnoreCase("on")) {
+                if (!pvp){
+                    this.setPvp(uuid, true);
+                    new MngConf().save();
+                }
+                sender.sendMessage(ChatColor.GREEN + "PVP activado del jugador " + player.getName());
+                return true;
             } else if (args[0].equalsIgnoreCase("off")) {
                 if (pvp) {
-                    Variables.playerData.get(uuid).setPvp(false);
-                    sender.sendMessage(ChatColor.GREEN + "PVP desactivado");
+                    this.setPvp(uuid, false);
                     new MngConf().save();
-                    return true;
-                } else {
-                    sender.sendMessage(ChatColor.RED + "Ya tienes PVP desactivado");
-                    return true;
                 }
+                sender.sendMessage(ChatColor.GREEN + "PVP desactivado del jugador " + player.getName());
+                return true;
             }
         }
-
-
-        sender.sendMessage(ChatColor.RED + "Error al ejecutar el comando, comprueba que hayas escrito los valores correctamente");
-
+        sender.sendMessage(ChatColor.RED + "Error al ejecutar el comando, comprueba que hayas escrito los valores correctamente")
         return false;
     }
+
+    public boolean hasPermission(CommandSender sender, String permission) {
+
+        if (!sender.hasPermission(permission)) {
+            sender.sendMessage(ChatColor.RED + "No tienes los permisos requeridos para ejecutar este comando");
+            return true;
+        }
+    }
+
+    public boolean setPvp(UUID uuid, Boolean pvp) {
+        Variables.playerData.get(uuid).setPvp(pvp);
+        return pvp;
+    }
+
 }
