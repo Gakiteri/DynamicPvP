@@ -2,7 +2,7 @@ package net.gakiteri.dynamicpvp.commands;
 
 import net.gakiteri.dynamicpvp.Variables;
 import net.gakiteri.dynamicpvp.functions.MngConf;
-import net.md_5.bungee.api.ChatColor;
+import net.gakiteri.dynamicpvp.functions.MngPlayers;
 import org.bukkit.Server;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -38,7 +38,7 @@ public class CmdPvp implements CommandExecutor {
                 if(!this.hasPermission(sender, "dynamic.pvp.status.players")) {
                     return true;
                 }
-                player = sender; //change args[1]
+                player = MngPlayers.getPlayer(args[1]); //change args[1]
                 if(player == null) {
                     sender.sendMessage(ChatColor.RED + "Usuario no existe");
                     return true;
@@ -58,7 +58,7 @@ public class CmdPvp implements CommandExecutor {
                 if(!this.hasPermission(sender, "dynamic.pvp.set.players")) {
                     return true;
                 }
-                Player player = sender; //change args[1]
+                Player player = MngPlayers.getPlayer(args[1]);
                 uuid = player.getUniqueId();
             }
             if (args[0].equalsIgnoreCase("on")) {
@@ -77,7 +77,7 @@ public class CmdPvp implements CommandExecutor {
                 return true;
             }
         }
-        sender.sendMessage(ChatColor.RED + "Error al ejecutar el comando, comprueba que hayas escrito los valores correctamente")
+        sender.sendMessage(ChatColor.RED + "Error al ejecutar el comando, comprueba que hayas escrito los valores correctamente");
         return false;
     }
 

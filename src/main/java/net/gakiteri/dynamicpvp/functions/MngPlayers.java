@@ -5,7 +5,7 @@ import static org.bukkit.Bukkit.getServer;
 
 public class MngPlayers {
 
-    public Player getPlayer(String val) {
+    public static Player getPlayer(String val) {
 
         if (val.length() <= 16) {
             try {

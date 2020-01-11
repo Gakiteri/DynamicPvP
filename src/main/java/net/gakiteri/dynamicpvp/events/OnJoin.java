@@ -8,6 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.util.UUID;
+
 public class OnJoin implements Listener {
 
     @EventHandler
@@ -15,7 +17,7 @@ public class OnJoin implements Listener {
 
         // Get player data
         Player player = event.getPlayer();
-        String uuid = player.getUniqueId().toString();
+        UUID uuid = player.getUniqueId();
 
         // Check if player data was stored
         if (!Variables.playerData.containsKey(uuid)) {

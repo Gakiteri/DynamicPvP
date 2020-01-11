@@ -37,7 +37,7 @@ public final class Dynamicpvp extends JavaPlugin {
         /** ASSIGNS CONFIG **/
         try {
             Variables.config.getList("players.on").forEach(player -> {
-                Variables.playerData.put((String) player, new DataPlayer(true));
+                Variables.playerData.put((Mng) player, new DataPlayer(true));
             });
         } catch (Exception e) {
             getLogger().info("No players have PVP ON");
