@@ -50,7 +50,7 @@ public class OnPvp implements Listener {
                     event.setCancelled(true);
                 }
                 if (!Variables.playerData.get(receiveUUID).getPvp()) {
-                    getServer().getPlayer(receiveUUID).spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.RED + ((Player) event.getEntity()).getPlayer().getName() + " tiene el PVP desactivado"));
+                    getServer().getPlayer(dealUUID).spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.RED + ((Player) event.getEntity()).getPlayer().getName() + " tiene el PVP desactivado"));
                 } else if (!Variables.playerData.get(dealUUID).getPvp()) {
                     getServer().getPlayer(dealUUID).spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.RED + "No tienes el PVP desactivado"));
                 }
