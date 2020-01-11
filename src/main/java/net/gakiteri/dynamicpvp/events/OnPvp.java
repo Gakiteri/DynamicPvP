@@ -44,7 +44,7 @@ public class OnPvp implements Listener {
 
             // Check if damaged is has to be cancelled
             if (!receiveUUID.equals(dealUUID)) {
-                if (fireStrike && (!Variables.playerData.get(receiveUUID).getPvp())) {
+                if (!fireStrike && (!Variables.playerData.get(receiveUUID).getPvp())) {
                     event.setCancelled(true);
                 } else if (!Variables.playerData.get(receiveUUID).getPvp() || !Variables.playerData.get(dealUUID).getPvp()) {
                     event.setCancelled(true);

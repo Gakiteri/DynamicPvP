@@ -34,17 +34,17 @@ public class CmdPvp implements CommandExecutor {
             return true;
         } else if (args[0].equalsIgnoreCase("status")) { //status function /pvp status || /pvp status FoxkDev
             Player player = (Player) sender;
-            if(args.length == 2) {
-                if(!this.hasPermission(sender, "dynamic.pvp.status.players")) {
+            if (args.length == 2) {
+                if (!this.hasPermission(sender, "dynamic.pvp.status.players")) {
                     return true;
                 }
                 player = MngPlayers.getPlayer(args[1]); //change args[1]
-                if(player == null) {
+                if (player == null) {
                     sender.sendMessage(ChatColor.RED + "Usuario no existe");
                     return true;
                 }
             }
-            if(Variables.playerData.get(player.getUniqueId()).getPvp()) {
+            if (Variables.playerData.get(player.getUniqueId()).getPvp()) {
                 sender.sendMessage(ChatColor.BLUE + "PvP activado del jugador " + player.getName());
             }else {
                 sender.sendMessage(ChatColor.BLUE + "PvP desactivado del jugador " + player.getName());
@@ -53,8 +53,8 @@ public class CmdPvp implements CommandExecutor {
 
         } else if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off")) {
             Player player = (Player) sender;
-            if(args.length == 2) {
-                if(!this.hasPermission(sender, "dynamic.pvp.set.players")) {
+            if (args.length == 2) {
+                if (!this.hasPermission(sender, "dynamic.pvp.set.players")) {
                     return true;
                 }
                 player = MngPlayers.getPlayer(args[1]);
