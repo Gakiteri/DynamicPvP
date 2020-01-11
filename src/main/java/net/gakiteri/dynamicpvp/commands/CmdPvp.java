@@ -43,7 +43,6 @@ public class CmdPvp implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + "Usuario no existe");
                     return true;
                 }
-                uuid = player.getUniqueId();
             }
             if(Variables.playerData.get(player.getUniqueId()).getPvp()) {
                 sender.sendMessage(ChatColor.BLUE + "PvP activado del jugador " + player.getName());
@@ -52,13 +51,13 @@ public class CmdPvp implements CommandExecutor {
             }
             return true;
 
-        } else if(args[0].equalsIgnoreCase("on") || args[1].equalsIgnoreCase("off")) {
+        } else if (args[0].equalsIgnoreCase("on") || args[1].equalsIgnoreCase("off")) {
             Player player = (Player) sender;
             if(args.length == 2) {
                 if(!this.hasPermission(sender, "dynamic.pvp.set.players")) {
                     return true;
                 }
-                Player player = MngPlayers.getPlayer(args[1]);
+                player = MngPlayers.getPlayer(args[1]);
                 uuid = player.getUniqueId();
             }
             if (args[0].equalsIgnoreCase("on")) {
@@ -85,8 +84,8 @@ public class CmdPvp implements CommandExecutor {
 
         if (!sender.hasPermission(permission)) {
             sender.sendMessage(ChatColor.RED + "No tienes los permisos requeridos para ejecutar este comando");
-            return true;
         }
+        return true;
     }
 
     public boolean setPvp(UUID uuid, Boolean pvp) {

@@ -15,8 +15,8 @@ public class MngConf {
     public void save() {
 
         // Sorts players
-        ArrayList<UUID> playersOn = new ArrayList<>();
-        ArrayList<UUID> playersOff = new ArrayList<>();
+        ArrayList<String> playersOn = new ArrayList<>();
+        ArrayList<String> playersOff = new ArrayList<>();
 
         Variables.playerData.forEach((i, o) -> {
             if (o.getPvp()) {
