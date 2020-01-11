@@ -21,7 +21,7 @@ public class CmdPvp implements CommandExecutor {
         String uuid = ((Player) sender).getUniqueId().toString();
         Boolean pvp = Variables.playerData.get(uuid).getPvp();
 
-        if (args.length == 0 && perm set) {
+        if (args.length == 0) { // toggle current player
             Variables.playerData.get(uuid).setPvp(!pvp);
             new MngConf().save();
             if (pvp) {
@@ -30,7 +30,13 @@ public class CmdPvp implements CommandExecutor {
                 sender.sendMessage(ChatColor.GREEN + "PVP activado");
             }
             return true;
-        } else if (args.length == 1) {
+        } else if (args[1].equalsIgnoreCase("status")) { //status function
+            if (Variables.playerData.get(((Player) sender).getUniqueId().toString()).getPvp()) {
+                sender.sendMessage(ChatColor.BLUE + "Tienes el PVP activado");
+            } else {
+                sender.sendMessage(ChatColor.BLUE + "Tienes el PVP desactivado");
+            }
+        } else if(args[1].equalsIgnoreCase("on") || args[1].equalsIgnoreCase("off")) {
             if (args[0].equalsIgnoreCase("on")) {
                 if (pvp) {
                     sender.sendMessage(ChatColor.RED + "Ya tienes PVP activado");
@@ -51,16 +57,7 @@ public class CmdPvp implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + "Ya tienes PVP desactivado");
                     return true;
                 }
-            } else if (args[0].equalsIgnoreCase("status")) {
-                if (Variables.playerData.get(((Player) sender).getUniqueId().toString()).getPvp()) {
-                    sender.sendMessage(ChatColor.BLUE + "Tienes el PVP activado");
-                } else {
-                    sender.sendMessage(ChatColor.BLUE + "Tienes el PVP desactivado");
-                }
             }
-        } else if (args.length == 2) {
-            // status de jugador X
-            // set de jugador X
         }
 
 
