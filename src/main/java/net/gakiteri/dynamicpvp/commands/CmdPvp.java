@@ -3,6 +3,7 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 
 import net.gakiteri.dynamicpvp.Variables;
 import net.gakiteri.dynamicpvp.functions.MngConf;
+import net.gakiteri.dynamicpvp.functions.MngPermissions;
 import net.gakiteri.dynamicpvp.functions.MngPlayers;
 import net.gakiteri.dynamicpvp.functions.MngRegions;
 import org.bukkit.*;
@@ -27,7 +28,7 @@ public class CmdPvp implements CommandExecutor {
 
         AtomicReference<Boolean> canSetPvp = new AtomicReference<>(true);
 
-        if(!this.hasPermission(sender, "dynamic.pvp.set.inworld", false)) {
+        if(!MngPermissions.hasPermission(sender, "dynamic.pvp.set.inworld", false)) {
             canSetPvp.set(false);
             //get regions activable pvp
             ApplicableRegionSet regions = MngRegions.getRegionsFromPlayer((Player) sender);
@@ -45,7 +46,7 @@ public class CmdPvp implements CommandExecutor {
 
         Boolean pvp = Variables.playerData.get(uuid).getPvp();
         if (canSetPvp.get() && args.length == 0) { // toggle current player /pvp
-            if(!this.hasPermission(sender, "dynamic.pvp.set", true)) {
+            if(!MngPermissions.hasPermission(sender, "dynamic.pvp.set", true)) {
                 return true;
             }
             this.setPvp(uuid, !pvp);
@@ -57,9 +58,8 @@ public class CmdPvp implements CommandExecutor {
             }
             return true;
         } else if (args[0].equalsIgnoreCase("status")) { //status function /pvp status || /pvp status FoxkDev
-            sender.sendMessage(ChatColor.BLUE + "ENTRA STATUS");
             if (args.length == 2) {
-                if (!this.hasPermission(sender, "dynamic.pvp.status.players", true)) {
+                if (!MngPermissions.hasPermission(sender, "dynamic.pvp.status.players", true)) {
                     return true;
                 }
                 player = MngPlayers.getPlayer(args[1]); //change args[1]
@@ -76,10 +76,9 @@ public class CmdPvp implements CommandExecutor {
             return true;
 
         } else if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off")) {
-            sender.sendMessage(ChatColor.BLUE + "ENTRA ON/OFF");
             if(canSetPvp.get()) {
                 if (args.length == 2) {
-                    if (!this.hasPermission(sender, "dynamic.pvp.set.players", true)) {
+                    if (!MngPermissions.hasPermission(sender, "dynamic.pvp.set.players", true)) {
                         return true;
                     }
                     player = MngPlayers.getPlayer(args[1]);
@@ -112,22 +111,12 @@ public class CmdPvp implements CommandExecutor {
         }
         if(!args[0].equalsIgnoreCase("help")) {
             sender.sendMessage(ChatColor.RED + "Error al ejecutar el comando, comprueba que hayas escrito los valores correctamente");
+            return true;
         }
-        if(!canSetPvp.get()) {
-            sender.sendMessage(ChatColor.RED + "No puedes activar el pvp fuera de un poblado!");
-        }
-        return false;
-    }
-
-    public boolean hasPermission(CommandSender sender, String permission, Boolean alert) {
-        if (!sender.hasPermission(permission)) {
-            if(alert) {
-                sender.sendMessage(ChatColor.RED + "No tienes los permisos requeridos para ejecutar este comando");
-            }
-            return false;
-        }
+        sender.sendMessage(ChatColor.RED + "No puedes activar el pvp fuera de un poblado!");
         return true;
     }
+
 
     public boolean setPvp(UUID uuid, Boolean pvp) {
         Variables.playerData.get(uuid).setPvp(pvp);

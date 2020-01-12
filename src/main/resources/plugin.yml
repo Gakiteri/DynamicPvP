@@ -18,15 +18,21 @@ permissions:
       dynamic.pvp.set: op
       dynamic.pvp.status.players: op
       dynamic.pvp.set.players: op
+      dynamic.pvp.set.inworld: op
+      dynamic.pvp.region: op
   dynamic.pvp.set:
      description: Set Pvp
      default: op
   dynamic.pvp.set.players:
      description:  Set Pvp to other players
      default: op
-  dynamic.pvp.status.players:
-     description: Get Status from players
-     default: op
   dynamic.pvp.set.inworld:
     description: Set Pvp in all world
     default: op
+  dynamic.pvp.status.players:
+     description: Get Status from players
+     default: op
+  dynamic.pvp.region:
+    description: Set regions to toogle PVP
+    default: op
+

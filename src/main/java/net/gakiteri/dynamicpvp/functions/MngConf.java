@@ -35,7 +35,15 @@ public class MngConf {
     }
     public void saveRegions() {
 
-        Variables.config.set("regions.enabled", Variables.regionsEnabled);
+        // Sorts players
+        ArrayList<String> regionsEnabled = new ArrayList<>();
+
+        Variables.regionsEnabled.forEach((region) -> {
+            regionsEnabled.add(region.toString());
+        });
+
+        // Adds config
+        Variables.config.set("regions.enabled", regionsEnabled);
 
         // Saves to file
         plugin.saveConfig();
