@@ -22,7 +22,7 @@ public class OnJoin implements Listener {
         // Check if player data was stored
         if (!Variables.playerData.containsKey(uuid)) {
             Variables.playerData.put(uuid, new DataPlayer(false));
-            new MngConf().save();
+            new MngConf().savePlayers();
         }
     }
 }
