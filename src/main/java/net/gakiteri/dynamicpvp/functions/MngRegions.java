@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class MngRegions {
+
     public static ApplicableRegionSet getRegionsFromPlayer(Player player) {
         LocalPlayer ply = WorldGuardPlugin.inst().wrapPlayer(player);
         RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();

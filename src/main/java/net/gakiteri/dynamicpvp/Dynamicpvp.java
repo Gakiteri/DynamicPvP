@@ -8,12 +8,8 @@ import net.gakiteri.dynamicpvp.functions.MngFile;
 import net.gakiteri.dynamicpvp.events.OnJoin;
 import net.gakiteri.dynamicpvp.functions.MngPlayers;
 import org.bukkit.Server;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
 
 public final class Dynamicpvp extends JavaPlugin {
 
@@ -44,7 +40,6 @@ public final class Dynamicpvp extends JavaPlugin {
         /** ASSIGNS CONFIG **/
         try {
             Variables.config.getList("players.on").forEach(player -> {
-
                 Variables.playerData.put(MngPlayers.getPlayer((String) player).getUniqueId(), new DataPlayer(true));
             });
         } catch (Exception e) {
@@ -57,6 +52,7 @@ public final class Dynamicpvp extends JavaPlugin {
         } catch (Exception e) {
             getLogger().info("No players have PVP OFF");
         }
+
          // ASSIGN REGIONS ENABLED
         try {
             Variables.config.getList("regions.enabled").forEach(regionName -> {

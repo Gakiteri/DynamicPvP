@@ -15,6 +15,11 @@ public class CmdPvpRegion implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
+        String regionName = "";
+        if (args.length > 1) {
+            regionName = args[1];
+        }
+
         switch (args[0]) {
             case "list":
                 sender.sendMessage(ChatColor.BLUE + " " + Variables.regionsEnabled.size());
@@ -28,16 +33,14 @@ public class CmdPvpRegion implements CommandExecutor {
                 }
                 break;
             case "add":
-                String search = args[1].toString();
-                int idx = Variables.regionsEnabled.indexOf(search);
-                if(idx == -1) {
+                if (Variables.regionsEnabled.indexOf(regionName) == -1) {
                     Player player = (Player) sender;
-                    ProtectedRegion region = MngRegions.getRegionsFromSearch(search, player.getWorld());
-                    if(region != null) {
-                        Variables.regionsEnabled.add(search);
+                    ProtectedRegion region = MngRegions.getRegionsFromSearch(regionName, player.getWorld());
+                    if (region != null) {
+                        Variables.regionsEnabled.add(regionName);
                         new MngConf().saveRegions();
                         sender.sendMessage(ChatColor.GREEN + "Region añadida para activar PVP");
-                    }else{
+                    } else {
                         sender.sendMessage(ChatColor.RED + "No hay una region con ese nombre");
                     }
                 } else {
@@ -46,14 +49,15 @@ public class CmdPvpRegion implements CommandExecutor {
 
                 break;
             case "remove":
-                int idx = Variables.regionsEnabled.indexOf(args[1].toString());
-                if(idx != -1) {
+                int idx = Variables.regionsEnabled.indexOf(regionName);
+                if (idx != -1) {
                     Variables.regionsEnabled.remove(idx);
                     new MngConf().saveRegions();
                     sender.sendMessage(ChatColor.GREEN + "Region Borrada");
                 } else {
                     sender.sendMessage(ChatColor.RED + "No hay una region con ese nombre");
                 }
+
                 break;
         }
         return true;
