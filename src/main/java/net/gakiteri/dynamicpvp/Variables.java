@@ -4,9 +4,8 @@ import net.gakiteri.dynamicpvp.data.DataPlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+
 public class Variables {
 
     public static String pluginName;
@@ -14,5 +13,6 @@ public class Variables {
     public static FileConfiguration config;
 
     public static Map<UUID, DataPlayer> playerData = new HashMap<>();
+    public static ArrayList<String> regionsEnabled = new ArrayList<>();
 
 }

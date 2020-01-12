@@ -1,14 +1,19 @@
 package net.gakiteri.dynamicpvp;
 
 import net.gakiteri.dynamicpvp.commands.CmdPvp;
+import net.gakiteri.dynamicpvp.commands.CmdPvpRegion;
 import net.gakiteri.dynamicpvp.data.DataPlayer;
 import net.gakiteri.dynamicpvp.events.OnPvp;
 import net.gakiteri.dynamicpvp.functions.MngFile;
 import net.gakiteri.dynamicpvp.events.OnJoin;
 import net.gakiteri.dynamicpvp.functions.MngPlayers;
 import org.bukkit.Server;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
 
 public final class Dynamicpvp extends JavaPlugin {
 
@@ -21,6 +26,7 @@ public final class Dynamicpvp extends JavaPlugin {
 
         /** COMMAND REGISTRATION **/
         this.getCommand("pvp").setExecutor(new CmdPvp());
+        this.getCommand("pvpregion").setExecutor(new CmdPvpRegion());
 
         /** EVENT REGISTRATION **/
         pluginManager.registerEvents(new OnJoin(), this);
@@ -50,6 +56,14 @@ public final class Dynamicpvp extends JavaPlugin {
             });
         } catch (Exception e) {
             getLogger().info("No players have PVP OFF");
+        }
+         // ASSIGN REGIONS ENABLED
+        try {
+            Variables.config.getList("regions.enabled").forEach(regionName -> {
+                Variables.regionsEnabled.add((String) regionName);
+            });
+        } catch (Exception e) {
+            getLogger().info("No regions enabled");
         }
 
 

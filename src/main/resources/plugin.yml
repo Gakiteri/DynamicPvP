@@ -3,10 +3,14 @@ version: ${project.version}
 main: net.gakiteri.dynamicpvp.Dynamicpvp
 api-version: 1.15
 authors: [Gakiteri,FoxkDev]
+depend: [WorldGuard]
 commands:
   pvp:
     description: Toggle a players PVP settings
     usage: /<command> [on|off|status] [Player]
+  pvpregion:
+    description: Set regions to toggle PVP settings
+    usage: /<command> [list|add|remove] [Region]
 permissions:
   dynamic.pvp.*:
     description:  Give acces to all commands
@@ -23,3 +27,6 @@ permissions:
   dynamic.pvp.status.players:
      description: Get Status from players
      default: op
+  dynamic.pvp.set.inworld:
+    description: Set Pvp in all world
+    default: op

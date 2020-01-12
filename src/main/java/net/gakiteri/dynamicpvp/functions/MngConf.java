@@ -11,7 +11,7 @@ public class MngConf {
 
     private Plugin plugin = getPluginManager().getPlugin(Variables.pluginName);
 
-    public void save() {
+    public void savePlayers() {
 
         // Sorts players
         ArrayList<String> playersOn = new ArrayList<>();
@@ -28,6 +28,22 @@ public class MngConf {
         // Adds config
         Variables.config.set("players.on", playersOn);
         Variables.config.set("players.off", playersOff);
+
+        // Saves to file
+        plugin.saveConfig();
+
+    }
+    public void saveRegions() {
+
+        // Sorts players
+        ArrayList<String> regionsEnabled = new ArrayList<>();
+
+        Variables.regionsEnabled.forEach((region) -> {
+            regionsEnabled.add(region.toString());
+        });
+
+        // Adds config
+        Variables.config.set("regions.enabled", regionsEnabled);
 
         // Saves to file
         plugin.saveConfig();
