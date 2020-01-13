@@ -50,7 +50,6 @@ public class CmdPvp implements CommandExecutor {
                 return true;
             }
             this.setPvp(uuid, !pvp);
-            new MngConf().savePlayers();
             if (pvp) {
                 sender.sendMessage(ChatColor.GREEN + "PVP desactivado");
             } else {
@@ -88,7 +87,6 @@ public class CmdPvp implements CommandExecutor {
                 if (args[0].equalsIgnoreCase("on")) {
                     if (!pvp){
                         this.setPvp(uuid, true);
-                        new MngConf().savePlayers();
                     }
                     sender.sendMessage(ChatColor.GREEN + "PVP activado del jugador " + player.getName());
                     if(uuid != currentPlayer.getUniqueId()){
@@ -97,7 +95,6 @@ public class CmdPvp implements CommandExecutor {
                 } else if (args[0].equalsIgnoreCase("off")) {
                     if (pvp) {
                         this.setPvp(uuid, false);
-                        new MngConf().savePlayers();
                     }
                     sender.sendMessage(ChatColor.GREEN + "PVP desactivado del jugador " + player.getName());
                     if(uuid != currentPlayer.getUniqueId()){
@@ -106,7 +103,6 @@ public class CmdPvp implements CommandExecutor {
                 }
                 return true;
             }
-
             return true;
         }
         if(!args[0].equalsIgnoreCase("help")) {
@@ -118,8 +114,9 @@ public class CmdPvp implements CommandExecutor {
     }
 
 
-    public boolean setPvp(UUID uuid, Boolean pvp) {
+    private boolean setPvp(UUID uuid, Boolean pvp) {
         Variables.playerData.get(uuid).setPvp(pvp);
+        new MngConf().savePlayers();
         return pvp;
     }
 
