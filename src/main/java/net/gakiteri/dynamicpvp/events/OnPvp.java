@@ -36,26 +36,27 @@ public class OnPvp implements Listener {
                 dealUUID = ((Player) ((ThrownPotion) damager).getShooter()).getPlayer().getUniqueId();
             } else if (damager instanceof AreaEffectCloud && ((AreaEffectCloud) damager).getSource() instanceof Player) {
                 dealUUID = ((Player) ((AreaEffectCloud) damager).getSource()).getPlayer().getUniqueId();
-            } else if (damager instanceof Firework) {
+            }/* else if (damager instanceof Firework) {
                 fireStrike = true;
             } else if (damager instanceof LightningStrike) {
                 fireStrike = true;
-            }
+            }*/
 
             // Check if damaged is has to be cancelled
-            if (!receiveUUID.equals(dealUUID)) {
-                if (!fireStrike && (!Variables.playerData.get(receiveUUID).getPvp())) {
-                    event.setCancelled(true);
-                } else if (!Variables.playerData.get(receiveUUID).getPvp() || !Variables.playerData.get(dealUUID).getPvp()) {
-                    event.setCancelled(true);
-                }
-                if (!Variables.playerData.get(dealUUID).getPvp()) {
-                    getServer().getPlayer(dealUUID).spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.RED + "No tienes el PVP activado"));
-                } else if (!Variables.playerData.get(receiveUUID).getPvp()) {
-                    getServer().getPlayer(dealUUID).spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.RED + ((Player) event.getEntity()).getPlayer().getName() + " tiene el PVP desactivado"));
+            if (dealUUID != null) {
+                if (!receiveUUID.equals(dealUUID)) {
+                    if ((!Variables.playerData.get(receiveUUID).getPvp())) { //!fireStrike &&
+                        event.setCancelled(true);
+                    } else if (!Variables.playerData.get(receiveUUID).getPvp() || !Variables.playerData.get(dealUUID).getPvp()) {
+                        event.setCancelled(true);
+                    }
+                    if (!Variables.playerData.get(dealUUID).getPvp()) {
+                        getServer().getPlayer(dealUUID).spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.RED + "No tienes el PVP activado"));
+                    } else if (!Variables.playerData.get(receiveUUID).getPvp()) {
+                        getServer().getPlayer(dealUUID).spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.RED + ((Player) event.getEntity()).getPlayer().getName() + " tiene el PVP desactivado"));
+                    }
                 }
             }
-
         }
     }
 }
